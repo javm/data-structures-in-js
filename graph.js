@@ -13,6 +13,26 @@ class Graph {
       this.adj[v].push(w);
       this.adj[w].push(v)
     });
+
+    this.marked = {};
+    this.vertices.forEach((v) => {
+      this.marked[v] = false;
+    });
+  }
+
+  dfs(v){
+    this.marked[v] = true;
+
+    if(this.adj[v] !== undefined){
+      console.log("Visited vertex: ", v);
+    }
+
+    for(let i=0; i < this.adj[v].length; ++i){
+      let w = this.adj[v][i];
+      if(!this.marked[w]){
+        this.dfs(w);
+      }
+    }
   }
 
   showGraph(){
@@ -26,4 +46,5 @@ class Graph {
 let vs = [0,1,2,3,4];
 let eds = [[0,1], [0,2], [1,3], [2,4]];
 const g = new Graph(vs, eds);
-g.showGraph()
+g.showGraph();
+g.dfs(0);
